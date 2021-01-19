@@ -1,7 +1,12 @@
 #!/bin/bash
+
+# Self-update
+curl -s "https://raw.githubusercontent.com/susanBuck/hes-tools/main/hes?token=AAB2BDZNGB5KESDTJIFIP5LACB2YO" > hes
+
 ver=1.0.0
 
-source .gitconfig
+# Load configs
+source .config
 
 
 echo "What would you like to do?"
