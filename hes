@@ -1,14 +1,7 @@
 ver=1.0.0
 
-latestVer=$(curl -s https://raw.githubusercontent.com/susanBuck/hes-tools/main/hes | /usr/bin/head -n 1)
-
-if [ "ver=$ver" != $latestVer ]; then
-    echo "================= WARNING ================="
-    echo "This script is currently at version $ver"
-    echo "A newer version, $latestVer, is available."
-    echo "Choose option m to update"
-    echo "==========================================="
-fi
+# Variables
+scriptSource="https://raw.githubusercontent.com/susanBuck/hes-tools/main/hes"
 
 
 
@@ -98,15 +91,32 @@ mySql() {
 
 echo "  l) Show settings"
 showSettings() {
-    echo "operating_system: $operating_system"
-    echo "production_ssh: $production_ssh"
-    echo "code_editor: $code_editor"
+    echo "Script version: $ver"
+    echo "Latest version available: $latestVer"
+
+    echo "Configs: "
+    echo "  operating_system: $operating_system"
+    echo "  production_ssh: $production_ssh"
+    echo "  code_editor: $code_editor"
 }
 
 echo "  m) Update"
 update() {
-    curl -s "https://raw.githubusercontent.com/susanBuck/hes-tools/main/hes" > hes
+    curl -s "$scriptSource" > hes
 }
+
+
+# Check for updates
+latestVer=$(curl -s $scriptSource | /usr/bin/head -n 1)
+echo $latestVer;
+
+if [ "ver=$ver" != $latestVer ]; then
+    echo "================= WARNING ================="
+    echo "This script is currently at version $ver"
+    echo "A newer version, $latestVer, is available."
+    echo "Choose option m to update"
+    echo "==========================================="
+fi
 
 echo ""
 echo "ENTER A LETTER TO CHOOSE YOUR COMMAND: "
