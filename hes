@@ -1,15 +1,14 @@
 #!/bin/bash
 
-# Self-update
-curl -s "https://raw.githubusercontent.com/susanBuck/hes-tools/main/hes" > hes
-
 ver=1.0.0
 
 # Load configs
 source .config
 
 
-echo "What would you like to do?"
+echo ""
+echo "COMMAND OPTIONS:"
+echo ""
 
 #
 #
@@ -61,7 +60,7 @@ restartApache() {
 #
 echo ""
 echo "PRODUCTION"
-echo "  h) SSH in your production server (production_ssh) and go to /var/www/html"
+echo "  h) SSH in your production server ($production_ssh) and go to /var/www/html"
 sshIntoProduction() {
     ssh -t production_ssh "cd /var/www/html; bash --login"
 }
@@ -87,7 +86,6 @@ mySql() {
     /Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot
 }
 
-echo ""
 echo "  l) Show settings"
 showSettings() {
     echo "operating_system: $operating_system"
@@ -95,8 +93,13 @@ showSettings() {
     echo "code_editor: $code_editor"
 }
 
+echo "  l) Update"
+update() {
+    curl -s "https://raw.githubusercontent.com/susanBuck/hes-tools/main/hes" > hes
+}
 
-echo "ENTER A NUMBER: "
+echo ""
+echo "ENTER A LETTER TO CHOOSE YOUR COMMAND: "
 
 read n
 case $n in
@@ -110,6 +113,7 @@ case $n in
   h) editProductionVirtualHosts;;
   i) mySql;;
   l) showSettings;;
+  m) update;;
 
   *) echo "Invalid option";;
 esac
