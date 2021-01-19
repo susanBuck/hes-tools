@@ -1,6 +1,16 @@
-#!/bin/bash
-
 ver=1.0.0
+
+latestVer=$(curl -s https://raw.githubusercontent.com/susanBuck/hes-tools/main/hes | /usr/bin/head -n 1)
+
+if [ "ver=$ver" != $latestVer ]; then
+    echo "================= WARNING ================="
+    echo "This script is currently at version $ver"
+    echo "A newer version, $latestVer, is available."
+    echo "Choose option m to update"
+    echo "==========================================="
+fi
+
+
 
 # Load configs
 source .config
@@ -93,7 +103,7 @@ showSettings() {
     echo "code_editor: $code_editor"
 }
 
-echo "  l) Update"
+echo "  m) Update"
 update() {
     curl -s "https://raw.githubusercontent.com/susanBuck/hes-tools/main/hes" > hes
 }
