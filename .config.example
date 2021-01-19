@@ -1,0 +1,9 @@
+operating_system="mac"
+production_ssh="forge@97.107.140.30"
+code_editor="code"
+
+
+localApacheConfigFile="/Applications/XAMPP/xamppfiles/etc/httpd.conf"
+localVirtualHostsConfig="/Applications/XAMPP/etc/extra/httpd-vhosts.conf"
+diagnoseVirtualHosts="/Applications/XAMPP/bin/httpd -S"
+localHosts="/private/etc/hosts"

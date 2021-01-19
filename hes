@@ -1,0 +1,111 @@
+#!/bin/bash
+ver=1.0.0
+
+source .gitconfig
+
+
+echo "What would you like to do?"
+
+#
+#
+#
+echo "GIT"
+
+echo "  a) Sync local code with Github and production"
+gitDeploy() {
+    echo "Git deploy"
+}
+
+echo "  b) Sync local code with Github only"
+gitUpdate() {
+    echo "Git update"
+}
+
+#
+#
+#
+echo ""
+echo "LOCAL"
+echo "  c) Edit Apache config file ($localApacheConfigFile)"
+editApacheConfig() {
+    sudo $code_editor $localApacheConfigFile
+}
+
+echo "  d) Edit VirtualHosts config file ($localVirtualHostsConfig)"
+editVirtualHosts () {
+    sudo $code_editor $localVirtualHostsConfig
+}
+
+echo "  e) Run a diagnostic check on VirtualHosts config file" 
+diagnoseVirtualHosts() {
+    $diagnoseVirtualHosts
+}
+
+echo "  f) Edit your local hosts config file (/private/etc/hosts)"
+editHosts() {
+    sudo $code_editor $localHosts
+}
+
+echo "  g) Restart XAMPP’s Apache"
+restartApache() {
+    sudo /Applications/XAMPP/xamppfiles/xampp restart
+}
+
+#
+#
+#
+echo ""
+echo "PRODUCTION"
+echo "  h) SSH in your production server (production_ssh) and go to /var/www/html"
+sshIntoProduction() {
+    ssh -t production_ssh "cd /var/www/html; bash --login"
+}
+
+echo "  i) Edit VirtualHosts config file (/etc/apache2/sites-enabled/000-default.conf)"
+editProductionVirtualHosts () {
+    ssh -t production_ssh "nano /etc/apache2/sites-enabled/000-default.conf" 
+}
+
+echo "  j) Restart Apache"
+restartProductionApache() {
+    echo "restart production apache"
+}
+
+
+#
+#
+#
+echo ""
+echo "MISC"
+echo "  k) Open XAMPP's MySQL command prompt"
+mySql() {
+    /Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot
+}
+
+echo ""
+echo "  l) Show settings"
+showSettings() {
+    echo "operating_system: $operating_system"
+    echo "production_ssh: $production_ssh"
+    echo "code_editor: $code_editor"
+}
+
+
+echo "ENTER A NUMBER: "
+
+read n
+case $n in
+  a) gitDeploy;;
+  b) gitUpdate;;
+  c) editVirtualHosts;;
+  d) diagnoseVirtualHosts;;
+  e) editHosts;;
+  f) restartApache;;
+  g) sshIntoProduction;;
+  h) editProductionVirtualHosts;;
+  i) mySql;;
+  l) showSettings;;
+
+  *) echo "Invalid option";;
+esac
+
